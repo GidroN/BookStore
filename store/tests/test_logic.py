@@ -20,3 +20,6 @@ class LogicTestCase(TestCase):
         a, b, c = 5, 6, '*'
         result = operations(a, b, c)
         self.assertEqual(result, 30)
+
+    def test_something_other(self):
+        self.assertEqual(True, True)
