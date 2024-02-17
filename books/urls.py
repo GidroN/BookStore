@@ -14,15 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from rest_framework.routers import SimpleRouter
-from store.views import BooksViewSet
+from django.urls import path, include, re_path
+from rest_framework.routers import DefaultRouter
+from store.views import BooksViewSet, auth
 
-router = SimpleRouter()
-router.register('api/books', BooksViewSet)
+router = DefaultRouter()
+router.register('books', BooksViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('store/', include('store.urls')),
+    # path('auth/', auth),
+    re_path('', include('social_django.urls', namespace='social')),
 ]
 
-urlpatterns += router.urls
